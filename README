@@ -1,0 +1,36 @@
+This is a simple bot for Linux+X11 that automatically plays the game Diamond
+Dash, available on Facebook and Google+. It's performance depends a lot on your
+computer speed. My laptop generally scores around 500-800k, while my (faster)
+desktop can routinely score about 1300k.
+
+Usage:
+1. Open the game in your browser and go to the main menu. Make sure the
+full game window is visible.
+2. Run the bot.
+3. Hold down the right control key. This enables the bot. Anytime you release
+the ctrl key, the bot stops playing. (This is useful if you need to manually
+intervene. I like to release Ctrl when a diamond tile is clicked so that my bot
+doesn't go nuts while the meteor thingy is animating.)
+
+About the algorithm:
+Before the game starts, dashbot scans the screen looking for the "Diamond Dash"
+logo. This tells him where to look for the tiles and the Play button.
+1. dashbot takes a screenshot of the game playing area (the 8x9 grid where the
+tiles are).
+2. dashbot looks at each 40x40 px section of the grid, comparing it to each of
+the 6 possible tiles.
+3. dashbot identifies which tile is in each grid location. If he's unsure
+(animations can screw up the identification), he marks the tile as unknown.
+4. dashbot goes through the identified grid and finds every cluster of 3 or
+more tiles on the board, leaving a 1-tile border around each cluster. The
+border is for "magic fire" mode, where adjacent tiles explode when you clear a
+cluster: we don't want to click on whatever took the place of the exploding
+tiles.
+5. dashbot quickly clicks on 1 tile from each cluster he found, in succession.
+Note that he does this from top-left to bottom-right, so that he doesn't have
+to look at the screen again (tiles below or to the left/right of a cleared
+cluster are guaranteed to still be there).
+5. dashbot takes a rest for 1/3 of a second to allow the new tiles to fall in
+from above. (The exact delay should be tuned for how fast your computer is.
+Slower computers might need a longer delay.)
+6. Repeat steps 1-6.
