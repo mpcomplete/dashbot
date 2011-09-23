@@ -433,6 +433,11 @@ int main(int argc, char *argv[])
     find_clusters(&board, &clusters);
     printf("Found %lu clusters.\n", clusters.size());
 
+    if (clusters.empty()) {
+      usleep(25*1000);
+      continue;
+    }
+
 //    dump_screen_diff(&board, &screen, clusters);
 
     for (size_t i = 0; i < clusters.size(); ++i) {
